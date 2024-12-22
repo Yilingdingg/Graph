@@ -9,10 +9,12 @@ class Graph:
         print(self.adj)
     def BFS(self, source):
         visited=[False]*self.n
+        distance=[-1]*self.n
         res=[]
         queue=[]
         queue.append(source)
         visited[source]=True
+        distance[source]=0
         while len(queue) > 0:
             s=queue.pop(0)
             res.append(s)
@@ -20,12 +22,15 @@ class Graph:
                 if visited[item]==False:
                     queue.append(item)
                     visited[item]=True
-        return res
+                    distance[item]=distance[s]+1
+        return distance
 
 graph1=Graph(4)
-graph1.edge(1,2)
-graph1.edge(2,3)
-graph1.edge(2,4)
-graph1.edge(1,3)
+graph1.edge(1,4)
+graph1.edge(4,3)
+graph1.edge(3,2)
+graph1.edge(2,1)
 #graph1.edge(4,3)
-print(graph1.BFS(0))
+distance=graph1.BFS(0)
+print("The distance of each node from Node O is:", distance)
+
